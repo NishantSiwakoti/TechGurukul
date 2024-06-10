@@ -37,7 +37,7 @@ export const CartList = () => {
           <button
             onClick={() => setCheckout(true)}
             type="button"
-            className="px-10 py-3 rounded-full bg-purple-500 text-white font-semibold hover:bg-purple-600 dark:bg-purple-400 dark:hover:bg-purple-500 transition"
+            className="px-10 py-3 rounded-md bg-purple-700 text-white font-semibold hover:bg-purple-800 dark:bg-purple-700 dark:hover:bg-purple-800 transition"
           >
             Checkout <i className="ml-2 bi bi-arrow-right"></i>
           </button>
