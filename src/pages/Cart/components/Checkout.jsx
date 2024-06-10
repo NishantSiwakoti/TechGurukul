@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context";
 import { createOrder, getUser } from "../../../services";
 
@@ -188,12 +188,14 @@ export const Checkout = ({ setCheckout }) => {
             <p className="my-4 text-xl font-bold text-center text-green-500">
               Total: Rs. {total}
             </p>
-            <button
-              type="submit"
-              className="w-full px-5 py-3 text-sm font-medium text-center text-white transition bg-blue-600 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
-            >
-              <i className="mr-2 bi bi-lock-fill"></i>PAY NOW
-            </button>
+            <NavLink to="/ordersuccess">
+              <button
+                type="submit"
+                className="w-full px-5 mt-5 py-3 text-sm font-medium text-center text-white transition bg-blue-600 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+              >
+                <i className="mr-2 bi bi-lock-fill"></i>PAY NOW
+              </button>
+            </NavLink>
           </form>
         </div>
       </div>

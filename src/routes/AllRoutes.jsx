@@ -30,7 +30,7 @@ export const AllRoutes = () => {
         <Route path="register" element={<Register />} />
         <Route path="testimonials" element={<Testimonials />} />
         <Route path="about" element={<Whyus />} />
-
+        <Route path="ordersuccess" element={<OrderSuccess />} />
         <Route path="cart" element={<CartPage />} />
         <Route
           path="order-summary"
@@ -50,7 +50,6 @@ export const AllRoutes = () => {
         />
 
         <Route path="*" element={<PageNotFound />} />
-        {/* <Route path="/ordersuccess" element={<OrderSuccess />} /> */}
       </Routes>
     </>
   );

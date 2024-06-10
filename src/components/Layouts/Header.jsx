@@ -18,10 +18,11 @@ export const Header = () => {
   );
   const [searchSection, setSearchSection] = useState(false);
   const [dropdown, setDropdown] = useState(false);
+  const [searchInputVisible, setSearchInputVisible] = useState(false); // New state to manage visibility of search input
+
   const token = JSON.parse(sessionStorage.getItem("token"));
 
   useEffect(() => {
-    // console.log(`Dark mode is ${darkMode ? "enabled" : "disabled"}`);
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
 
     if (darkMode) {
@@ -43,8 +44,6 @@ export const Header = () => {
           </Link>
           <div className="hidden md:flex items-center space-x-6">
             <ul className="flex list-none gap-7 p-0">
-              {" "}
-              {/* Apply list-none class */}
               <li>
                 <NavLink
                   to="/"
@@ -92,7 +91,6 @@ export const Header = () => {
             <span
               onClick={() => {
                 setDarkMode(!darkMode);
-                console.log(`Dark mode toggled to ${!darkMode}`);
               }}
               className="cursor-pointer text-xl text-gray-700 dark:text-white mr-5"
             >
@@ -103,7 +101,7 @@ export const Header = () => {
               )}
             </span>
             <span
-              onClick={() => setSearchSection(!searchSection)}
+              onClick={() => setSearchInputVisible(!searchInputVisible)} // Toggle visibility of search input
               className="cursor-pointer text-xl text-gray-700 dark:text-white mr-5 fas fa-search"
             ></span>
             <Link to="/cart" className="text-gray-700 dark:text-white mr-5">
@@ -126,7 +124,10 @@ export const Header = () => {
           </div>
         </div>
       </nav>
-      {searchSection && <Search setSearchSection={setSearchSection} />}
+      {searchInputVisible && (
+        <Search setSearchSection={setSearchInputVisible} />
+      )}{" "}
+      {/* Render search input if visible */}
     </header>
   );
 };

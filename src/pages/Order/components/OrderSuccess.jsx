@@ -1,19 +1,43 @@
-import { Link } from "react-router-dom"
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { FaCheck, FaShoppingCart } from "react-icons/fa"; // Import FontAwesome icons
 
-export const OrderSuccess = ({data}) => {
+export const OrderSuccess = () => {
   return (
-    <section className="text-xl text-center max-w-4xl mx-auto my-10 py-5 dark:text-slate-100 border dark:border-slate-700 rounded">
-        <div className="my-5">
-            <p className="bi bi-check-circle text-green-600 text-7xl mb-5"></p>
-            <p>Thank you {data.user.name} for the order!</p>
-            <p>Your Order ID: {data.id}</p>          
+    <section className="min-h-screen">
+      <div className="flex justify-center mt-16">
+        <div className="bg-white text-white p-8 rounded-2xl shadow-2xl max-w-md w-full">
+          <div className="flex justify-center mb-4">
+            {/* Right tick icon */}
+            <FaCheck className="text-4xl text-green-500" />
+          </div>
+          <h2 className="text-center text-black text-xl font-semibold mb-2">
+            Thank you for your order!
+          </h2>
+          <p className="text-center mb-4 text-black">Your Order ID: 1</p>
+          <p className="text-center mb-4 text-black">
+            Please login with the email that you have provided us on our
+            website.
+            <NavLink to="/login">
+              <span className="text-purple-800 font-bold"> Login</span>
+            </NavLink>
+          </p>
+          <p className="text-center mb-6 text-black">
+            Payment ID: xyz_123456789
+          </p>
+          <div className="flex justify-center">
+            <button className="bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded inline-flex items-center">
+              <NavLink to="/products">
+                {/* Cart icon */}
+                <span className="flex">
+                  Continue Shopping
+                  <FaShoppingCart className="ml-2 mt-1" />
+                </span>
+              </NavLink>
+            </button>
+          </div>
         </div>
-        <div className="my-5">
-            <p>Your order is confirmed.</p>
-            <p>Please check your mail ({data.user.email}) for the eBook.</p>
-            <p className="my-5">Payment ID: xyz_123456789</p>
-        </div>
-        <Link to="/products" type="button" className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg text-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none">Continue Shopping <i className="ml-2 bi bi-cart"></i></Link>
+      </div>
     </section>
-  )
-}
+  );
+};
