@@ -13,7 +13,7 @@ export const ProductDetail = () => {
   useTitle(product.name);
 
   useEffect(() => {
-    async function fetchProducts() {
+    async function fetchProduct() {
       try {
         const data = await getProduct(id);
         setProduct(data);
@@ -24,7 +24,7 @@ export const ProductDetail = () => {
         });
       }
     }
-    fetchProducts();
+    fetchProduct();
   }, [id]);
 
   useEffect(() => {
@@ -38,73 +38,73 @@ export const ProductDetail = () => {
   }, [cartList, product.id]);
 
   return (
-    <main>
-      <section>
-        <h1 className="mt-10 mb-5 text-4xl text-center font-bold text-gray-900 dark:text-slate-200">
-          {product.name}
-        </h1>
-        <p className="mb-5 text-lg text-center text-gray-900 dark:text-slate-200">
-          {product.overview}
-        </p>
-        <div className="flex flex-wrap justify-around">
-          <div className="max-w-xl my-3">
-            <img className="rounded" src={product.poster} alt={product.name} />
+    <main className="container mx-auto p-6 dark:bg-gray-900">
+      <section className="bg-white dark:bg-gray-800 shadow-lg rounded-lg p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div>
+            <img
+              className="rounded-lg w-full h-auto"
+              src={product.poster}
+              alt={product.name}
+            />
           </div>
-          <div className="max-w-xl my-3">
-            <p className="text-3xl font-bold text-gray-900 dark:text-slate-200">
-              <span className="mr-1">Rs .</span>
-              <span className="">{product.price}</span>
+          <div>
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-slate-200 mb-4">
+              {product.name}
+            </h1>
+            <p className="text-lg text-gray-700 dark:text-slate-300 mb-4">
+              {product.overview}
             </p>
-            <p className="my-3">
-              <span>
-                <Rating rating={product.rating} />
-              </span>
+            <p className="text-3xl font-bold text-gray-900 dark:text-slate-200 mb-4">
+              <span className="mr-1">Rs.</span>
+              <span>{product.price}</span>
             </p>
-            <p className="my-4 select-none">
+            <div className="mb-4">
+              <Rating rating={product.rating} />
+            </div>
+            <div className="flex flex-wrap items-center mb-4">
               {product.best_seller && (
-                <span className="font-semibold text-amber-500 border bg-amber-50 rounded-lg px-3 py-1 mr-2">
+                <span className="font-semibold text-amber-500 bg-amber-50 dark:bg-amber-900 border rounded-lg px-3 py-1 mr-2 mb-2">
                   BEST SELLER
                 </span>
               )}
-              {product.in_stock && (
-                <span className="font-semibold text-emerald-600	border bg-slate-100 rounded-lg px-3 py-1 mr-2">
-                  INSTOCK
+              {product.in_stock ? (
+                <span className="font-semibold text-emerald-600 bg-slate-100 dark:bg-emerald-900 border rounded-lg px-3 py-1 mr-2 mb-2">
+                  IN STOCK
                 </span>
-              )}
-              {!product.in_stock && (
-                <span className="font-semibold text-rose-700 border bg-slate-100 rounded-lg px-3 py-1 mr-2">
+              ) : (
+                <span className="font-semibold text-rose-700 bg-slate-100 dark:bg-rose-900 border rounded-lg px-3 py-1 mr-2 mb-2">
                   OUT OF STOCK
                 </span>
               )}
-              <span className="font-semibold text-blue-500 border bg-slate-100 rounded-lg px-3 py-1 mr-2">
+              <span className="font-semibold text-blue-500 bg-slate-100 dark:bg-blue-900 border rounded-lg px-3 py-1 mb-2">
                 {product.size} MB
               </span>
-            </p>
-            <p className="my-3">
-              {!inCart && (
+            </div>
+            <div className="mb-4">
+              {!inCart ? (
                 <button
                   onClick={() => addToCart(product)}
-                  className={`inline-flex items-center py-2 px-5 text-lg font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 ${
-                    product.in_stock ? "" : "cursor-not-allowed"
+                  className={`w-full lg:w-auto inline-flex items-center justify-center py-2 px-5 text-lg font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 transition ${
+                    product.in_stock ? "" : "cursor-not-allowed opacity-50"
                   }`}
-                  disabled={product.in_stock ? "" : "disabled"}
+                  disabled={!product.in_stock}
                 >
                   Add To Cart <i className="ml-1 bi bi-plus-lg"></i>
                 </button>
-              )}
-              {inCart && (
+              ) : (
                 <button
                   onClick={() => removeFromCart(product)}
-                  className={`inline-flex items-center py-2 px-5 text-lg font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 ${
-                    product.in_stock ? "" : "cursor-not-allowed"
+                  className={`w-full lg:w-auto inline-flex items-center justify-center py-2 px-5 text-lg font-medium text-white bg-red-600 rounded-lg hover:bg-red-800 transition ${
+                    product.in_stock ? "" : "cursor-not-allowed opacity-50"
                   }`}
-                  disabled={product.in_stock ? "" : "disabled"}
+                  disabled={!product.in_stock}
                 >
                   Remove Item <i className="ml-1 bi bi-trash3"></i>
                 </button>
               )}
-            </p>
-            <p className="text-lg text-gray-900 dark:text-slate-200">
+            </div>
+            <p className="text-lg text-gray-700 dark:text-slate-300">
               {product.long_description}
             </p>
           </div>

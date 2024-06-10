@@ -21,7 +21,7 @@ export const Header = () => {
   const token = JSON.parse(sessionStorage.getItem("token"));
 
   useEffect(() => {
-    console.log(`Dark mode is ${darkMode ? "enabled" : "disabled"}`);
+    // console.log(`Dark mode is ${darkMode ? "enabled" : "disabled"}`);
     localStorage.setItem("darkMode", JSON.stringify(darkMode));
 
     if (darkMode) {
