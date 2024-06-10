@@ -1,14 +1,23 @@
-import { Link } from "react-router-dom"
-
-export const CartEmpty = () => {
+import { NavLink } from "react-router-dom";
+import searches from "../../../assets/search.png";
+export function CartEmpty() {
   return (
-    <section className="text-xl text-center max-w-4xl mx-auto my-10 py-5 dark:text-slate-100 border dark:border-slate-700 rounded">
-        <div className="my-5">
-            <p className="bi bi-cart text-green-600 text-7xl mb-5"></p>
-            <p>Oops! Your cart looks empty!</p>
-            <p>Add eBooks to your cart from our store collection.</p>
-        </div>
-        <Link to="/products" type="button" className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg text-lg px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none">Continue Shopping <i className="ml-2 bi bi-cart"></i></Link>
-    </section>
-  )
+    <div className="max-w-4xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4 dark:text-white">Shopping Cart</h1>
+      <p className="text-lg font-semibold mb-6 dark:text-gray-300">
+        0 Courses in cart
+      </p>
+      <div className="border rounded-lg p-8 flex flex-col items-center">
+        <img src={searches} alt="" className="mb-4 w-52" />
+        <p className="text-zinc-600 dark:text-gray-300 mb-6">
+          Your cart is empty. Keep shopping to find a course!
+        </p>
+        <NavLink to="/products">
+          <button className="bg-purple-600 text-white px-4 py-2 rounded-md">
+            Keep shopping
+          </button>
+        </NavLink>
+      </div>
+    </div>
+  );
 }

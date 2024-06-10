@@ -23,7 +23,7 @@ export const ProductCard = ({ product }) => {
     <div className="m-3 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <Link to={`/products/${id}`} className="relative">
         {best_seller && (
-          <span className="absolute top-4 left-2 px-2 bg-orange-500 bg-opacity-90 text-white rounded">
+          <span className="absolute top-4 left-2 px-3 bg-orange-500 bg-opacity-90 text-white rounded-sm">
             Best Seller
           </span>
         )}
@@ -51,12 +51,12 @@ export const ProductCard = ({ product }) => {
           {!inCart && (
             <button
               onClick={() => addToCart(product)}
-              className={`inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 ${
+              className={`inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-[#8710d8] rounded-md hover:bg-purple-800 ${
                 product.in_stock ? "" : "cursor-not-allowed"
               }`}
               disabled={product.in_stock ? "" : "disabled"}
             >
-              Add To Cart <i className="ml-1 bi bi-plus-lg"></i>
+              Add to Cart <i className="ml-1"></i>
             </button>
           )}
           {inCart && (
@@ -67,7 +67,7 @@ export const ProductCard = ({ product }) => {
               }`}
               disabled={product.in_stock ? "" : "disabled"}
             >
-              Remove Item <i className="ml-1 bi bi-trash3"></i>
+              Remove course <i className="ml-1"></i>
             </button>
           )}
         </p>

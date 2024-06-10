@@ -9,7 +9,7 @@ export default function Widget() {
       <h2 className="text-center underline text-blue-600 dark:text-blue-400 text-2xl font-bold mb-20">
         OUR SELECTED STUDENTS
       </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-11">
         <div className="bg-blue-900 text-white p-4 rounded-lg relative">
           <img
             className="w-20 h-20 rounded-full absolute -top-8 left-1/2 transform -translate-x-1/2"

@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTitle } from "../hooks/useTitle";
 import { login } from "../services";
+import { NavLink } from "react-router-dom";
 
 export const Login = () => {
   useTitle("Login");
@@ -45,7 +46,7 @@ export const Login = () => {
   }
 
   return (
-    <main className="min-h-screen flex items-center justify-center">
+    <main className=" flex items-center justify-center">
       <section className="w-full max-w-md p-8 space-y-6 bg-white rounded-xl shadow-2xl dark:bg-gray-800">
         <p className="text-3xl text-center font-semibold text-gray-900 dark:text-white mb-6">
           Login
@@ -93,6 +94,13 @@ export const Login = () => {
             </button>
           </div>
         </form>
+        <h1 className="mt-2 text-center">
+          Don't have an account?
+          <NavLink to="/register">
+            {" "}
+            <span className="text-blue-600"> Sign Up</span>{" "}
+          </NavLink>
+        </h1>
         {/* <div>
           <button
             onClick={handleLoginGuest}

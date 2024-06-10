@@ -5,7 +5,11 @@ import { createOrder, getUser } from "../../../services";
 
 export const Checkout = ({ setCheckout }) => {
   const { cartList, total, clearCart } = useCart();
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({ name: "", email: "" });
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiryMonth, setExpiryMonth] = useState("");
+  const [expiryYear, setExpiryYear] = useState("");
+  const [securityCode, setSecurityCode] = useState("");
 
   const navigate = useNavigate();
 
@@ -24,165 +28,173 @@ export const Checkout = ({ setCheckout }) => {
     fetchData();
   }, []);
 
+  function validateForm() {
+    return (
+      user.name &&
+      user.email &&
+      cardNumber &&
+      expiryMonth &&
+      expiryYear &&
+      securityCode
+    );
+  }
+
   async function handleOrderSubmit(event) {
     event.preventDefault();
+    if (!validateForm()) {
+      toast.error("Please fill in all fields", {
+        closeButton: true,
+        position: "bottom-center",
+      });
+      return;
+    }
+
     try {
-      const data = await createOrder(cartList, total, user);
+      const orderData = await createOrder(cartList, total, user);
       clearCart();
-      navigate("/order-summary", { state: { data: data, status: true } });
+      navigate("/ordersuccess", { state: { data: orderData, status: true } });
     } catch (error) {
       toast.error(error.message, {
         closeButton: true,
         position: "bottom-center",
       });
-      navigate("/order-summary", { state: { status: false } });
     }
   }
 
   return (
-    <section>
-      <div className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
-      <div
-        id="authentication-modal"
-        tabIndex="-1"
-        className="mt-5 overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full justify-center items-center flex"
-        aria-modal="true"
-        role="dialog"
-      >
-        <div className="relative p-4 w-full max-w-md h-full md:h-auto overflow-y-auto">
-          <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button
-              onClick={() => setCheckout(false)}
-              type="button"
-              className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-              data-modal-toggle="authentication-modal"
-            >
-              <svg
-                aria-hidden="true"
-                className="w-5 h-5"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
+    <section className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+      <div className="relative w-full max-w-lg bg-white rounded-lg shadow-lg dark:bg-gray-800">
+        <button
+          onClick={() => setCheckout(false)}
+          className="absolute top-4 right-4 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition"
+          aria-label="Close"
+        >
+          <svg
+            className="w-6 h-6"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 8.586L4.707 3.293a1 1 0 00-1.414 1.414L8.586 10l-5.293 5.293a1 1 0 001.414 1.414L10 11.414l5.293 5.293a1 1 0 001.414-1.414L11.414 10l5.293-5.293a1 1 0 00-1.414-1.414L10 8.586z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+        <div className="p-8">
+          <h3 className="mb-6 text-2xl font-semibold text-center text-gray-800 dark:text-white">
+            <i className="bi bi-credit-card mr-2"></i>CARD PAYMENT
+          </h3>
+          <form onSubmit={handleOrderSubmit} className="space-y-6">
+            <div>
+              <label
+                htmlFor="name"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-              <span className="sr-only">Close modal</span>
-            </button>
-            <div className="py-6 px-6 lg:px-8">
-              <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
-                <i className="bi bi-credit-card mr-2"></i>CARD PAYMENT
-              </h3>
-              <form onSubmit={handleOrderSubmit} className="space-y-6">
-                <div>
-                  <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Name:
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value={user.name || "Undefined"}
-                    disabled
-                    required=""
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Email:
-                  </label>
-                  <input
-                    type="text"
-                    name="email"
-                    id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value={user.email || "backup@example.com"}
-                    disabled
-                    required=""
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="card"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Card Number:
-                  </label>
-                  <input
-                    type="number"
-                    name="card"
-                    id="card"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="4215625462597845"
-                    disabled
-                    required=""
-                  />
-                </div>
-                <div className="">
-                  <label
-                    htmlFor="code"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Expiry Date:
-                  </label>
-                  <input
-                    type="number"
-                    name="month"
-                    id="month"
-                    className="inline-block w-20 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="03"
-                    disabled
-                    required=""
-                  />
-                  <input
-                    type="number"
-                    name="year"
-                    id="year"
-                    className="inline-block w-20 ml-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="27"
-                    disabled
-                    required=""
-                  />
-                </div>
-                <div>
-                  <label
-                    htmlFor="code"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                  >
-                    Security Code:
-                  </label>
-                  <input
-                    type="number"
-                    name="code"
-                    id="code"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:value-gray-400 dark:text-white"
-                    value="523"
-                    disabled
-                    required=""
-                  />
-                </div>
-                <p className="mb-4 text-2xl font-semibold text-lime-500 text-center">
-                  ${total}
-                </p>
-                <button
-                  type="submit"
-                  className="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700"
-                >
-                  <i className="mr-2 bi bi-lock-fill"></i>PAY NOW
-                </button>
-              </form>
+                Name:
+              </label>
+              <input
+                type="text"
+                id="name"
+                className="w-full p-3 text-sm text-gray-800 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
+                value={user.name}
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
+                required
+              />
             </div>
-          </div>
+            <div>
+              <label
+                htmlFor="email"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                className="w-full p-3 text-sm text-gray-800 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
+                value={user.email}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
+                required
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="card"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Card Number:
+              </label>
+              <input
+                type="number"
+                id="card"
+                className="w-full p-3 text-sm text-gray-800 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+                required
+              />
+            </div>
+            <div className="flex space-x-4">
+              <div>
+                <label
+                  htmlFor="month"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Expiry Month:
+                </label>
+                <input
+                  type="number"
+                  id="month"
+                  className="w-full p-3 text-sm text-gray-800 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
+                  value={expiryMonth}
+                  onChange={(e) => setExpiryMonth(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="year"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >
+                  Expiry Year:
+                </label>
+                <input
+                  type="number"
+                  id="year"
+                  className="w-full p-3 text-sm text-gray-800 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
+                  value={expiryYear}
+                  onChange={(e) => setExpiryYear(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label
+                htmlFor="code"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >
+                Security Code:
+              </label>
+              <input
+                type="number"
+                id="code"
+                className="w-full p-3 text-sm text-gray-800 bg-gray-100 border border-gray-300 rounded-lg dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600"
+                value={securityCode}
+                onChange={(e) => setSecurityCode(e.target.value)}
+                required
+              />
+            </div>
+            <p className="my-4 text-xl font-bold text-center text-green-500">
+              Total: Rs. {total}
+            </p>
+            <button
+              type="submit"
+              className="w-full px-5 py-3 text-sm font-medium text-center text-white transition bg-blue-600 rounded-lg hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600"
+            >
+              <i className="mr-2 bi bi-lock-fill"></i>PAY NOW
+            </button>
+          </form>
         </div>
       </div>
     </section>

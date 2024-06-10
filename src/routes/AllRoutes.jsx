@@ -13,6 +13,8 @@ import {
 import { ProtectedRoute } from "./ProtectedRoute";
 import { Testimonials } from "../pages/Home/components/Testimonials";
 import { Whyus } from "../pages/Home/components/Whyus";
+import LoadingBar from "react-top-loading-bar";
+import { OrderSuccess } from "../pages/Order/components/OrderSuccess";
 
 export const AllRoutes = () => {
   return (
@@ -29,14 +31,7 @@ export const AllRoutes = () => {
         <Route path="testimonials" element={<Testimonials />} />
         <Route path="about" element={<Whyus />} />
 
-        <Route
-          path="cart"
-          element={
-            <ProtectedRoute>
-              <CartPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="cart" element={<CartPage />} />
         <Route
           path="order-summary"
           element={
@@ -55,6 +50,7 @@ export const AllRoutes = () => {
         />
 
         <Route path="*" element={<PageNotFound />} />
+        {/* <Route path="/ordersuccess" element={<OrderSuccess />} /> */}
       </Routes>
     </>
   );

@@ -10,7 +10,7 @@ export const DropdownLoggedOut = ({ setDropdown }) => {
         className="py-2 text-sm text-gray-700 dark:text-gray-200"
         aria-labelledby="dropdownUserAvatarButton"
       >
-        <li>
+        {/* <li>
           <Link
             onClick={() => setDropdown(false)}
             to="/products"
@@ -18,7 +18,7 @@ export const DropdownLoggedOut = ({ setDropdown }) => {
           >
             All eBooks
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link
             onClick={() => setDropdown(false)}
@@ -34,7 +34,7 @@ export const DropdownLoggedOut = ({ setDropdown }) => {
             to="/register"
             className="block py-2 px-5 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white transition-colors duration-150"
           >
-            Register
+            Sign Up
           </Link>
         </li>
       </ul>

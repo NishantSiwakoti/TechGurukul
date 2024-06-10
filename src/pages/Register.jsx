@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useTitle } from "../hooks/useTitle";
 import { register } from "../services";
 
@@ -88,6 +88,13 @@ export const Register = () => {
             Sign Up
           </button>
         </form>
+        <h1 className="mt-2 text-center">
+          Already have an account?
+          <NavLink to="/login">
+            {" "}
+            <span className="text-blue-600"> Login</span>{" "}
+          </NavLink>
+        </h1>
       </div>
     </main>
   );

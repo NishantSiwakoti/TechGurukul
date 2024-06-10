@@ -9,7 +9,7 @@ import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   const activeClass =
-    "block py-2 px-3 text-white font-bold bg-[#3ed676] rounded md:bg-transparent md:text-[#29c964] md:p-0 dark:text-white md:dark:text-[#29c964]";
+    "block py-2 px-3 text-white font-bold bg-[#15803d] rounded md:bg-transparent md:text-[#a435f0] md:p-0 dark:text-white md:dark:text-[#a435f0]";
   const inActiveClass =
     "block py-2 px-3 text-gray-900 font-bold rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-[#29c964] md:p-0 dark:text-white md:dark:hover:text-[#29c964] dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent";
   const { cartList } = useCart();
@@ -38,7 +38,7 @@ export const Header = () => {
           <Link to="/" className="flex items-center">
             <img src={Logo} className="mr-3 h-10" alt="CodeBook Logo" />
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-              TechGurukul
+              Tech<span className="text-purple-600">Gurukul</span>
             </span>
           </Link>
           <div className="hidden md:flex items-center space-x-6">
@@ -108,7 +108,7 @@ export const Header = () => {
             ></span>
             <Link to="/cart" className="text-gray-700 dark:text-white mr-5">
               <span className="text-2xl fas fa-shopping-cart relative">
-                <span className="text-white text-sm absolute -top-1 left-2.5 bg-rose-500 px-1 rounded-full ">
+                <span className="text-white text-sm absolute -top-1 left-2.5 bg-[#a435f0] px-1 rounded-full ">
                   {cartList.length}
                 </span>
               </span>
