@@ -19,7 +19,7 @@
       "overview": "A beginner's course on the basics of machine learning algorithms and models.",
       "long_description": "This course introduces you to the world of machine learning, focusing on key algorithms and practical implementation using Python.",
       "price": 149,
-      "poster": "https://d3caycb064h6u1.cloudfront.net/wp-content/uploads/2021/06/Machine_Learning.jpg",
+      "poster": "https://atriainnovation.com/uploads/2023/11/portada-9-900x743-c-center.jpg",
       "image_local": "/assets/images/10003.avif",
       "rating": 4.6,
       "in_stock": true,
@@ -58,7 +58,7 @@
       "overview": "An introduction to the fundamentals of cybersecurity.",
       "long_description": "This course provides an overview of key cybersecurity concepts, including threat assessment, encryption, and ethical hacking practices.",
       "price": 199,
-      "poster": "https://arksolvers.com/wp-content/uploads/2024/04/Exploring-the-Various-Types-of-Cyber-Security-Threats-2024.jpg",
+      "poster": "https://certiprof.com/cdn/shop/articles/Cybersecurity_certiprof.webp?v=1741879682&width=1312",
       "image_local": "/assets/images/10006.avif",
       "rating": 4.5,
       "in_stock": true,
@@ -97,7 +97,7 @@
       "overview": "Explore deep learning techniques using TensorFlow.",
       "long_description": "This course delves into the world of deep learning, focusing on the TensorFlow framework. Learn to build, train, and deploy neural networks.",
       "price": 189,
-      "poster": "https://online.york.ac.uk/wp-content/uploads/2021/09/Illustration-of-a-brain-with-cogs-inside-and-pathways-outside-and-deep-learning-written-above.jpg",
+      "poster": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWYnTIMA6s8lIa-v9LT9d4HEXMjvZio5Ob7Q&s",
       "image_local": "/assets/images/10009.avif",
       "rating": 4.8,
       "in_stock": true,
@@ -175,7 +175,7 @@
       "overview": "Build dynamic web applications using Vue.js.",
       "long_description": "This course covers the essentials of front-end web development with Vue.js, including components, state management, and routing.",
       "price": 149,
-      "poster": "https://media.licdn.com/dms/image/D5612AQEeG7oJTTK1Ew/article-cover_image-shrink_720_1280/0/1680514548971?e=2147483647&v=beta&t=4_s6UeYrW_-eZ0E8a7TxTBT0I8FFSfdgfZhiF3xTnNs",
+      "poster": "https://blog.cdn.cmarix.com/blog/wp-content/uploads/2020/02/6-Reasons-Why-You-Should-Choose-Vue.png",
       "image_local": "/assets/images/10015.avif",
       "rating": 4.7,
       "in_stock": true,
@@ -274,8 +274,8 @@
       "best_seller": false
     }
   ],
-    "featured_products": [
-      {
+  "featured_products": [
+    {
       "id": 10006,
       "name": "Cybersecurity Basics",
       "overview": "An introduction to the fundamentals of cybersecurity.",
@@ -314,6 +314,5 @@
       "size": 12,
       "best_seller": true
     }
-    ]
-
+  ]
 }

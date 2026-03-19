@@ -1,28 +1,30 @@
+import db from "../../data/db.json";
+
 export async function getProductList(searchTerm) {
-  const response = await fetch(
-    `http://localhost:8000/products?name_like=${searchTerm ? searchTerm : ""}`
-  );
-  if (!response.ok) {
-    throw { message: response.statusText, status: response.status }; //eslint-disable-line
+  const term = (searchTerm || "").trim().toLowerCase();
+  const products = db.products || [];
+
+  if (!term) {
+    return products;
   }
-  const data = await response.json();
-  return data;
+
+  return products.filter((product) =>
+    product.name.toLowerCase().includes(term),
+  );
 }
 
 export async function getProduct(id) {
-  const response = await fetch(`http://localhost:8000/products/${id}`);
-  if (!response.ok) {
-    throw { message: response.statusText, status: response.status }; //eslint-disable-line
+  const product = (db.products || []).find(
+    (item) => String(item.id) === String(id),
+  );
+
+  if (!product) {
+    throw { message: "Product not found", status: 404 }; //eslint-disable-line
   }
-  const data = await response.json();
-  return data;
+
+  return product;
 }
 
 export async function getFeaturedList() {
-  const response = await fetch(`http://localhost:8000/featured_products`);
-  if (!response.ok) {
-    throw { message: response.statusText, status: response.status }; //eslint-disable-line
-  }
-  const data = await response.json();
-  return data;
+  return db.featured_products || [];
 }
